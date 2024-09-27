@@ -1,0 +1,25 @@
+﻿@model WebApplication1.Models.Url
+
+@{
+    ViewData["Title"] = "Delete";
+    
+}
+
+<h1>Delete</h1>
+
+@if (Model != null)
+{
+<h2>Delete Url</h2>
+
+<h3>Are you sure you want to delete this url?</h3>
+
+<form asp-action="Delete" asp-controller="Url" asp-route-id="@Model.Id" method="post">
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-default">Cancel</a>
+</form>
+}
+else
+{
+<h2>Url not found</h2>
+}

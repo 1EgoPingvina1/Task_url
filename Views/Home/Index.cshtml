@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebApplication1.Models.Url>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* <div class="text-center"> *@
+@*     <h1 class="display-4">Welcome</h1> *@
+@*     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
+@* </div> *@
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" asp-controller="Url">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OriginalUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortUrl)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model != null)
+    {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OriginalUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClickCount)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Url" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-controller="Url" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+    <tr>
+        <td colspan="6">No data available</td>
+    </tr>
+    }
+    </tbody>
+</table>

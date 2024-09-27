@@ -1,0 +1,44 @@
+﻿[
+  {
+    "Id": 1,
+    "OriginalUrl": "https://www.example.com/1",
+    "ShortUrl": "short.com/1",
+    "CreatedAt": "2022-01-01T00:00:00",
+    "ClickCount": 55
+  },
+  {
+    "Id": 2,
+    "OriginalUrl": "https://www.example.com/2",
+    "ShortUrl": "short.com/2",
+    "CreatedAt": "2022-01-01T00:00:00",
+    "ClickCount": 11
+  },
+  {
+    "Id": 3,
+    "OriginalUrl": "https://www.example.com/3",
+    "ShortUrl": "short.com/2",
+    "CreatedAt": "2022-01-01T00:00:00",
+    "ClickCount": 23
+  },
+  {
+    "Id": 4,
+    "OriginalUrl": "https://www.example.com/4",
+    "ShortUrl": "short.com/4",
+    "CreatedAt": "2022-01-01T00:00:00",
+    "ClickCount": 34
+  },
+  {
+    "Id": 5,
+    "OriginalUrl": "https://www.example.com/5",
+    "ShortUrl": "short.com/5",
+    "CreatedAt": "2022-01-01T00:00:00",
+    "ClickCount": 11
+  },
+  {
+    "Id": 6,
+    "OriginalUrl": "https://www.example.com/6",
+    "ShortUrl": "short.com/6",
+    "CreatedAt": "2022-01-01T00:00:00",
+    "ClickCount": 5
+  }
+]
