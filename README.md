@@ -18,6 +18,7 @@ Technologies Used 💻
 ✨ MariaDb 10.3  
 
 Design Patterns and Principles  
+
 Repository Pattern: used to abstract the data access layer and provide a layer of abstraction between the business logic and the data storage 📂  
 Dependency Injection: used to manage dependencies between components and make the application more modular and testable 💉  
 Single Responsibility Principle (SRP): each component has a single responsibility and is designed to perform a specific task 📝  
