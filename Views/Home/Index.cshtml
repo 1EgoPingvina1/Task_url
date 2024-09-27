@@ -23,7 +23,12 @@
         <th>
             @Html.DisplayNameFor(model => model.ShortUrl)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClickCount)
+        </th>
     </tr>
     </thead>
     <tbody>
@@ -32,9 +37,9 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
+                @* <td> *@
+                @*     @Html.DisplayFor(modelItem => item.Id) *@
+                @* </td> *@
                 <td>
                     @Html.DisplayFor(modelItem => item.OriginalUrl)
                 </td>
