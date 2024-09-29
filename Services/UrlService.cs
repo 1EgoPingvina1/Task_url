@@ -1,20 +1,19 @@
-﻿using WebApplication1.Models;
+﻿using System.Security.Cryptography;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Models;
 using WebApplication1.Interfaces;
 
 namespace WebApplication1.Services;
 
+//Этот сервис можно заменить если нам вдруг нужен будет Mediatr
 public class UrlService
 {
     private readonly IUrlRepository _repository;
-
-    public UrlService(IUrlRepository repository)
-    {
-        _repository = repository;
-    }
-
+    public UrlService(IUrlRepository repository) => _repository = repository;
     public async Task CreateAsync(string originalUrl)
     {
-        var shortUrl = GenerateShortUrl();
+        var shortUrl = GenerateShortUrl(originalUrl);
         var urlEntity = new Url { OriginalUrl = originalUrl, ShortUrl = shortUrl };
         await _repository.CreateAsync(urlEntity);
     }
@@ -31,16 +30,13 @@ public class UrlService
         if (urlEntity != null)
         {
             urlEntity.OriginalUrl = url.OriginalUrl;
-            urlEntity.ShortUrl = GenerateShortUrl();
+            urlEntity.ShortUrl = GenerateShortUrl(urlEntity.OriginalUrl);
             urlEntity.CreatedAt = DateTime.Now;
             await _repository.UpdateAsync(urlEntity);
         }
     }
 
-    public async Task DeleteAsync(int? id)
-    {
-        await _repository.DeleteAsync(id);
-    }
+    public async Task DeleteAsync(int? id) => await _repository.DeleteAsync(id);
     
     public async Task<IEnumerable<Url>> GetAllAsync()
     {
@@ -55,14 +51,30 @@ public class UrlService
         });
     }
 
-    private string GenerateShortUrl()
+    private static string GenerateShortUrl(string originalUrl)
     {
-        var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-        var random = new Random();
-        var shortCode = new char[6];
-        for (var i = 0; i < 6; i++)
+        var sha256 = SHA256.Create();
+
+        var bytes = Encoding.UTF8.GetBytes(originalUrl);
+
+        var hashBytes = sha256.ComputeHash(bytes);
+
+        var base64String = Convert.ToBase64String(hashBytes);
+
+        var shortCode = new string(base64String.Where(c => char.IsLetterOrDigit(c)).Take(6).ToArray());
+
+        return shortCode;   
+    }
+
+    public async Task<IActionResult> RedirectToOriginalUrl(string shortUrl)
+    {
+        var url = await _repository.GetUrlByShortUrlAsync(shortUrl);
+        if (url != null)
         {
-            shortCode[i] = chars[random.Next(chars.Length)];
+            url.ClickCount++;
+            await _repository.UpdateAsync(url);
+            return new RedirectResult(url.OriginalUrl);
         }
-        return new string(shortCode);    }
+        return new NotFoundResult();
+    }
 }

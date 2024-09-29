@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication1.Data;
 using WebApplication1.Models;
 using WebApplication1.Services;
 
@@ -58,4 +59,10 @@ public class UrlController : Controller
         await _urlService.DeleteAsync(id);
         return RedirectToAction("Index","Home");
     }
+
+    public async Task<IActionResult> Redirect(string shortUrl)
+    {
+       return await _urlService.RedirectToOriginalUrl(shortUrl);
+    }
+    
 }

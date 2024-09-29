@@ -16,8 +16,5 @@ public class UrlDataContext : DbContext
     }
     public DbSet<Url> Urls { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseMySql("Server=localhost,3306;Database=shorter_url;User=myuser;Password=mypassword;", new MariaDbServerVersion(new Version(10, 3)));
-    }
+
 }

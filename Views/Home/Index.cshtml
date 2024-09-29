@@ -17,6 +17,7 @@
 <table class="table">
     <thead>
     <tr>
+        <th>#</th>
         <th>
             @Html.DisplayNameFor(model => model.OriginalUrl)
         </th>
@@ -37,14 +38,19 @@
         @foreach (var item in Model)
         {
             <tr>
-                @* <td> *@
-                @*     @Html.DisplayFor(modelItem => item.Id) *@
-                @* </td> *@
                 <td>
-                    @Html.DisplayFor(modelItem => item.OriginalUrl)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ShortUrl)
+                    <a href="@Html.DisplayFor(model => item.OriginalUrl)">
+                        @Html.DisplayFor(model => item.OriginalUrl)
+                    </a>
+                </td>
+                <td>
+                    <a href="@Url.Action("Redirect", "Url",new {shortUrl = item.ShortUrl})">
+                        @item.ShortUrl
+                    </a>
+                    @* @Html.DisplayFor(modelItem => item.ShortUrl) *@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedAt)
